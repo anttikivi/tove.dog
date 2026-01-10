@@ -32,6 +32,7 @@
     }
 
     @media (width >= 64rem) {
+        /* stylelint-disable-next-line no-invalid-position-declaration */
         max-width: 48rem;
     }
 }
