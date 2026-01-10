@@ -5,7 +5,7 @@ Tove.
 
 Build the site by running:
 
-        npm run build
+    npm run build
 
 The site will be output to the `dist` directory.
 
