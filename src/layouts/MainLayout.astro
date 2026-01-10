@@ -13,6 +13,16 @@ const head = Astro.props;
         <Head {...head} />
     </head>
     <body class="bg-gray-50 font-sans text-gray-950 dark:bg-gray-900 dark:text-gray-50">
-        <slot />
+        <main>
+            <slot />
+        </main>
+        <footer class="container my-8 text-center text-sm">
+            <p>
+                © 2026 <a
+                    class="text-orange-700 underline hover:text-orange-800 dark:text-orange-400 dark:hover:text-orange-500"
+                    href="https://www.anttikivi.fi">Antti Kivi</a
+                > & Susanna Ranta
+            </p>
+        </footer>
     </body>
 </html>
