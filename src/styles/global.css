@@ -7,10 +7,16 @@
 
     --font-sans: "Inter", sans-serif;
     --font-serif: "Playfair Display", serif;
+    --font-mono: "Google Sans Code", monospace;
 
-    --color-gray-50: #f9fafb;
-    --color-gray-900: #111827;
-    --color-gray-950: #030712;
+    --color-gray-50: #f9fafb; /* light bg color, dark text color */
+    --color-gray-900: #111827; /* dark bg color */
+    --color-gray-950: #030712; /* light text color */
+
+    --color-orange-400: #fb923c; /* dark link color */
+    --color-orange-500: #f97316; /* dark hover color */
+    --color-orange-700: #c2410c; /* light link color */
+    --color-orange-800: #9a3412; /* light hover color */
 }
 
 @utility container {
