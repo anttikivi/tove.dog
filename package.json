@@ -6,6 +6,8 @@
         "astro": "astro",
         "build": "astro build",
         "dev": "astro dev",
+        "format": "prettier --write .",
+        "lint": "astro check && eslint . && stylelint \"**/*.{astro,css}\" && prettier --check .",
         "preview": "astro preview"
     },
     "dependencies": {
@@ -20,11 +22,15 @@
         "eslint-plugin-astro": "1.5.0",
         "eslint-plugin-jsx-a11y": "6.10.2",
         "globals": "17.0.0",
+        "postcss-html": "1.8.0",
         "prettier": "3.7.4",
         "prettier-plugin-astro": "0.14.1",
         "prettier-plugin-astro-organize-imports": "0.4.11",
         "prettier-plugin-organize-imports": "4.3.0",
         "prettier-plugin-packagejson": "2.5.20",
+        "stylelint": "16.26.1",
+        "stylelint-config-html": "1.1.0",
+        "stylelint-config-standard": "39.0.1",
         "typescript": "5.9.3",
         "typescript-eslint": "8.52.0"
     }

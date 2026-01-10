@@ -28,13 +28,6 @@ const config = {
                 printWidth: 80,
             },
         },
-        {
-            files: ["*.svg"],
-            options: {
-                xmlSortAttributesByKey: true,
-                xmlWhitespaceSensitivity: "ignore",
-            },
-        },
     ],
 };
 
