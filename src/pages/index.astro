@@ -1,5 +1,6 @@
 ---
 import toveImage from "@/assets/home/tove.jpeg";
+import Instagram from "@/components/Instagram.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Image } from "astro:assets";
 ---
@@ -8,6 +9,15 @@ import { Image } from "astro:assets";
     <div class="container my-8 space-y-4 text-center">
         <h1 class="font-serif text-5xl font-bold">Tove</h1>
         <p>Vihertassun Arcane Shooting Star</p>
+        <div class="mx-auto">
+            <a
+                class="inline-block hover:text-orange-700 dark:hover:text-orange-400"
+                href="https://www.instagram.com/tovecorgi/"
+                rel="nofollow"
+            >
+                <Instagram class="size-8 fill-current" />
+            </a>
+        </div>
         <Image
             class="mx-auto my-8 rounded-lg lg:max-w-2/3"
             alt="Welsh corgi pembroke -pentu Tove makaamassa"
