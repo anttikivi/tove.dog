@@ -1,0 +1,21 @@
+---
+import coverImage from "@/assets/ohje/cover.jpeg";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import { Image } from "astro:assets";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "ohje");
+if (!entry) {
+    throw new Error("no page `ohje` found");
+}
+
+const { Content } = await render(entry);
+---
+
+<DocsLayout description={entry.data.description} title={entry.data.title}>
+    <div class="container">
+        <h1 class="font-serif text-3xl font-bold md:text-4xl">{entry.data.title}</h1>
+        <Image class="mx-auto my-8 rounded-lg" alt="Welsh corgi pembroke -pentu Tove ulkoilemassa" src={coverImage} />
+        <Content />
+    </div>
+</DocsLayout>

@@ -1,4 +1,5 @@
 ---
+import DocsHeader from "@/components/DocsHeader.astro";
 import Head from "@/components/Head.astro";
 import "@/styles/global.css";
 import "@fontsource/inter";
@@ -13,7 +14,9 @@ const head = Astro.props;
         <Head {...head} />
     </head>
     <body class="bg-gray-50 font-sans text-gray-950 dark:bg-gray-900 dark:text-gray-50">
-        <main>
+        <a class="sr-only focus:not-sr-only" href="#sisalto">Siirry sisältöön</a>
+        <DocsHeader />
+        <main id="sisalto">
             <slot />
         </main>
         <footer class="container my-8 text-center text-sm">
