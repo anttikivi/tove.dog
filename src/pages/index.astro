@@ -1,16 +1,18 @@
 ---
-
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Image } from "astro:assets";
+import toveImage from "@/assets/home/tove.jpeg";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <h1>Astro</h1>
-    </body>
-</html>
+<MainLayout>
+    <div class="container my-8 space-y-4 text-center">
+        <h1 class="font-serif text-5xl font-bold">Tove</h1>
+        <p>Vihertassun Arcane Shooting Star</p>
+        <Image
+            class="mx-auto my-8 rounded-lg lg:max-w-2/3"
+            alt="Welsh corgi pembroke -pentu Tove makaamassa"
+            src={toveImage}
+            width={1400}
+        />
+    </div>
+</MainLayout>
