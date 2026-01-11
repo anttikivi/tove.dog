@@ -2,7 +2,7 @@
 import coverImage from "@/assets/ohje/cover.jpeg";
 import DocsLayout from "@/layouts/DocsLayout.astro";
 import { Image } from "astro:assets";
-import { getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 
 const entry = await getEntry("pages", "ohje");
 if (!entry) {
@@ -10,6 +10,83 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
+
+const collection = await getCollection("docs");
+collection.sort((a, b) => a.id.localeCompare(b.id));
+
+type Page = {
+    href: string;
+    label: string;
+    subpages: Page[];
+};
+
+function collectDocs(idx: number, prefix: string): Page[] {
+    const pages = [];
+    const parts = prefix.split("/");
+
+    for (let i = idx; i < collection.length; i++) {
+        const page = collection[i];
+        if (!page) {
+            throw new Error(`unexpectedly found no docs page for index ${i}`);
+        }
+
+        const currentParts = page.id.split("/");
+
+        if (prefix !== "" && currentParts.length <= parts.length) {
+            break;
+        }
+
+        let subpages: Page[] = [];
+
+        if (i + 1 < collection.length) {
+            const next = collection[i + 1];
+            if (!next) {
+                throw new Error("unexpectedly found no next docs collection entry");
+            }
+
+            const nextParts = next.id.split("/");
+
+            if (nextParts.length > currentParts.length) {
+                subpages = collectDocs(i + 1, currentParts.join("/"));
+                i += subpages.length;
+            }
+        }
+
+        pages.push({
+            href: "/ohje/" + page.id + "/",
+            label: page.data.title,
+            subpages,
+        });
+    }
+
+    return pages;
+}
+
+const docs = collectDocs(0, "");
+
+function printThePages(pages: Page[], indent: number): void {
+    for (const page of pages) {
+        if (page.subpages) {
+            printThePages(page.subpages, indent + 4);
+        }
+    }
+}
+
+printThePages(docs, 0);
+
+function createDocsList(pages: Page[], indent: number): string {
+    return `<ul style="padding-left: ${indent > 0 ? `${indent * 2}rem` : "0"};">${pages
+        .map(
+            (page) => `
+    <li class="my-2">
+        <a class="text-orange-700 underline hover:text-orange-800 dark:text-orange-400 dark:hover:text-orange-500" href="${page.href}">${page.label}</a>${page.subpages.length > 0 ? "\n" + createDocsList(page.subpages, indent + 1) : ""}
+    </li>`,
+        )
+        .join("")}
+</ul>`;
+}
+
+const list = createDocsList(docs, 0);
 ---
 
 <DocsLayout description={entry.data.description} title={entry.data.title}>
@@ -17,5 +94,6 @@ const { Content } = await render(entry);
         <h1 class="font-serif text-3xl font-bold md:text-4xl">{entry.data.title}</h1>
         <Image class="mx-auto my-8 rounded-lg" alt="Welsh corgi pembroke -pentu Tove ulkoilemassa" src={coverImage} />
         <Content />
+        <div set:html={list} />
     </div>
 </DocsLayout>

@@ -1,0 +1,35 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { getCollection, getEntry, render } from "astro:content";
+
+export const getStaticPaths = (async () => {
+    const docs = await getCollection("docs");
+
+    return docs.map((page) => ({
+        params: {
+            slug: page.id,
+        },
+        props: { page },
+    }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props as Props;
+const { Content } = await render(page);
+
+const parent = await getEntry("pages", "ohje");
+if (!parent) {
+    throw new Error("no page `ohje` found");
+}
+---
+
+<DocsLayout description={parent.data.description} title={page.data.title + " - Ohje"}>
+    <div class="container">
+        <h1 class="font-serif text-3xl font-bold md:text-4xl">{page.data.title}</h1>
+        <div class="prose">
+            <Content />
+        </div>
+    </div>
+</DocsLayout>

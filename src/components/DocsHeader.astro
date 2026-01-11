@@ -1,9 +1,69 @@
 ---
 import site from "@/data/site";
+import { getEntry } from "astro:content";
+
+const parent = await getEntry("pages", "ohje");
+if (!parent) {
+    throw new Error("no page `ohje` found");
+}
+
+let pageId = Astro.url.pathname;
+if (pageId.startsWith("/ohje")) {
+    pageId = pageId.slice("/ohje".length);
+}
+
+if (pageId.startsWith("/")) {
+    pageId = pageId.slice(1);
+}
+
+if (pageId.endsWith("/")) {
+    pageId = pageId.slice(0, -1);
+}
+
+const ids = pageId.split("/");
+
+const parentCrumb = {
+    href: "/" + parent.id + "/",
+    label: parent.data.title,
+};
+const breadcrumbs = [parentCrumb];
+
+if (Astro.url.pathname !== "/ohje/") {
+    for (let i = 0; i < ids.length; i++) {
+        const crumb = breadcrumbs[i];
+        if (!crumb) {
+            throw new Error("no breadcrumb for previous segment in docs");
+        }
+
+        const id = crumb.href.slice("/ohje/".length) + ids[i];
+        const entry = await getEntry("docs", id);
+        if (!entry) {
+            throw new Error(`no \`docs\` entry for \`${id}\``);
+        }
+
+        breadcrumbs.push({
+            href: crumb.href + ids[i] + "/",
+            label: entry.data.title,
+        });
+    }
+}
 ---
 
-<header class="container my-8">
+<header class="container my-8 space-y-4">
     <div class="mx-auto">
         <a class="underline hover:text-orange-700 dark:hover:text-orange-400" href="/">{site.name}</a>
     </div>
+    {
+        Astro.url.pathname !== "/ohje/" &&
+            breadcrumbs.map((crumb, i) => (
+                <>
+                    {i > 0 && <span> &gt; </span>}
+                    <a
+                        class="underline hover:text-orange-700 dark:hover:text-orange-400"
+                        href={crumb.href}
+                        set:text={crumb.label}
+                    />
+                </>
+            ))
+    }
 </header>
