@@ -57,6 +57,8 @@ function formatCanonicalURL(url: string | URL): string {
 
 <meta name="description" content={description} />
 
+{Astro.url.pathname.startsWith("/ohje/") && <meta name="robots" content="noindex, nofollow" />}
+
 <meta property="og:title" content={rawTitle ?? Astro.props.title} />
 <meta property="og:type" content="website" />
 {canonicalURL && <meta property="og:url" content={formatCanonicalURL(canonicalURL)} />}
