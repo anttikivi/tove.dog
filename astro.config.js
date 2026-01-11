@@ -1,4 +1,5 @@
 // @ts-check
+import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import browserslist from "browserslist";
@@ -26,4 +27,5 @@ export default defineConfig({
         format: "directory",
         assets: "_assets",
     },
+    integrations: [mdx()],
 });

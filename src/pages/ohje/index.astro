@@ -93,7 +93,9 @@ const list = createDocsList(docs, 0);
     <div class="container">
         <h1 class="font-serif text-3xl font-bold md:text-4xl">{entry.data.title}</h1>
         <Image class="mx-auto my-8 rounded-lg" alt="Welsh corgi pembroke -pentu Tove ulkoilemassa" src={coverImage} />
-        <Content />
+        <div class="prose">
+            <Content />
+        </div>
         <div set:html={list} />
     </div>
 </DocsLayout>
