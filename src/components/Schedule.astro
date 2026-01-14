@@ -3,6 +3,7 @@ interface Props {
     schedule: {
         time: string;
         action: string;
+        html?: boolean;
     }[];
 }
 
@@ -13,8 +14,8 @@ const { schedule } = Astro.props;
     {
         schedule.map((s) => (
             <>
-                <dt>{s.time}</dt>
-                <dd>{s.action}</dd>
+                <dt set:text={s.time} />
+                {s.html ? <dd set:html={s.action} /> : <dd set:text={s.action} />}
             </>
         ))
     }

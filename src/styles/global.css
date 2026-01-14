@@ -75,5 +75,10 @@
             font-weight: 700;
             font-size: var(--text-xl);
         }
+
+        & ul {
+            padding-left: --spacing(4);
+            list-style: disc;
+        }
     }
 }
