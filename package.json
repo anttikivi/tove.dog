@@ -30,7 +30,7 @@
         "globals": "17.0.0",
         "lightningcss": "1.30.2",
         "postcss-html": "1.8.1",
-        "prettier": "3.7.4",
+        "prettier": "3.8.0",
         "prettier-plugin-astro": "0.14.1",
         "prettier-plugin-astro-organize-imports": "0.4.11",
         "prettier-plugin-organize-imports": "4.3.0",
